@@ -6,9 +6,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true
   },
-  // Remove basePath and assetPrefix for user/organization GitHub Pages (harshkuro.github.io)
-  // basePath: '/myshowcase',
-  // assetPrefix: '/myshowcase',
+  // Remove basePath and assetPrefix for Vercel deployment
+  // basePath: '/Full-Stack-1',
+  // assetPrefix: '/Full-Stack-1',
 };
 
 export default nextConfig;
