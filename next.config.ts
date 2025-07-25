@@ -6,8 +6,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true
   },
-  basePath: '/myshowcase',
-  assetPrefix: '/myshowcase',
+  // Remove basePath and assetPrefix for user/organization GitHub Pages (harshkuro.github.io)
+  // basePath: '/myshowcase',
+  // assetPrefix: '/myshowcase',
 };
 
 export default nextConfig;
