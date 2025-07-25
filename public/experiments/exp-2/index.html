@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Banking UI</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN (required for utility classes) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Link to your custom CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-900 flex items-center justify-center min-h-screen text-white p-4">
+
+    <!-- Main Banking UI Card -->
+    <div id="banking-card" class="w-full max-w-md bg-gray-800 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-8 card-animation">
+        
+        <!-- Header Section -->
+        <div class="text-center">
+            <h1 class="text-2xl sm:text-3xl font-bold text-cyan-400">Digital Bank</h1>
+            <p class="text-gray-400 mt-1">Your Personal Account</p>
+        </div>
+
+        <!-- Balance Display Section -->
+        <div class="bg-gray-900 rounded-xl p-6 text-center shadow-inner">
+            <h2 class="text-sm font-medium text-gray-400 uppercase tracking-wider">Current Balance</h2>
+            <p id="balance" class="text-4xl sm:text-5xl font-extrabold text-white mt-2 tracking-tight">₹10,250.75</p>
+        </div>
+
+        <!-- Action Buttons Section -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Deposit Button -->
+            <button id="deposit-btn" class="w-full py-3 px-4 bg-green-500 text-gray-900 font-bold rounded-lg hover:bg-green-400 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                Deposit
+            </button>
+            <!-- Withdraw Button -->
+            <button id="withdraw-btn" class="w-full py-3 px-4 bg-red-500 text-white font-bold rounded-lg hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                Withdraw
+            </button>
+        </div>
+    </div>
+
+    <!-- Transaction Modal -->
+    <div id="transaction-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden modal-backdrop">
+        <div class="bg-gray-800 rounded-2xl shadow-2xl p-8 w-full max-w-sm modal-panel">
+            <h2 id="modal-title" class="text-2xl font-bold text-center mb-6">Enter Amount</h2>
+            <form id="transaction-form">
+                <div class="space-y-4">
+                    <!-- Amount Input -->
+                    <div>
+                        <label for="amount" class="sr-only">Amount</label>
+                        <div class="relative">
+                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                <span class="text-gray-400 text-lg">$</span>
+                            </div>
+                            <input type="number" id="amount" name="amount" placeholder="0.00" required step="0.01" min="0.01"
+                                   class="w-full pl-8 pr-4 py-3 text-lg text-white bg-gray-700 border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition">
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="flex gap-4 pt-2">
+                        <button type="button" id="cancel-btn" class="w-full py-3 px-4 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-500 transition duration-300">
+                            Cancel
+                        </button>
+                        <button type="submit" id="confirm-btn" class="w-full py-3 px-4 bg-cyan-500 text-gray-900 font-bold rounded-lg hover:bg-cyan-400 transition duration-300">
+                            Confirm
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Link to your JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
