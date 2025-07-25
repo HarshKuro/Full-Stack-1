@@ -1,0 +1,48 @@
+/* Custom styles and animations */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* --- Custom Cursor Styles ---
+A cool, futuristic target cursor for the general page.
+The SVG is encoded directly in the URL.
+*/
+html {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="10" stroke="%2306b6d4" stroke-width="2"/><circle cx="16" cy="16" r="2" fill="%2306b6d4"/></svg>'), auto;
+}
+
+/* A custom pointer cursor for interactive elements like buttons and links.
+This provides better visual feedback on clickable items.
+*/
+button, a, input[type="submit"], input[type="button"] {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="rgba(6, 182, 212, 0.5)" d="M9.61 2.24L22.36 15.21l-4.24 4.34-12.76-13z"/><path fill="rgba(6, 182, 212, 1)" d="M18.12 19.55l-4.24-4.34L25.5 3.32l2.83 2.83L18.12 19.55z"/></svg>'), auto;
+}
+
+
+/* Keyframe animation for the card to float subtly */
+@keyframes float {
+  0% {
+      transform: translateY(0px);
+  }
+  50% {
+      transform: translateY(-8px);
+  }
+  100% {
+      transform: translateY(0px);
+  }
+}
+
+/* Apply the animation to the main card */
+.card-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Style for the modal backdrop */
+.modal-backdrop {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Style for the modal panel */
+.modal-panel {
+  transition: all 0.3s ease-in-out;
+}
