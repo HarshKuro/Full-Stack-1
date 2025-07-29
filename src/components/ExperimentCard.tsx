@@ -51,7 +51,7 @@ export default function ExperimentCard({ experimentNumber, index }: ExperimentCa
               <motion.div
                 whileHover={{ rotate: 180 }}
                 transition={{ duration: 0.5 }}
-                className="p-2 bg-white bg-opacity-10 rounded-lg group-hover:bg-opacity-20 transition-all duration-300"
+                className="p-2 bg-gray-900 bg-opacity-10 rounded-lg group-hover:bg-opacity-20 transition-all duration-300"
               >
                 <Code className="w-4 h-4" />
               </motion.div>
@@ -68,11 +68,11 @@ export default function ExperimentCard({ experimentNumber, index }: ExperimentCa
             
             <motion.div
               whileHover={{ 
-                rotate: 45,
+                rotate: 10,
                 scale: 1.2
               }}
-              transition={{ duration: 0.3 }}
-              className="p-2 bg-gradient-to-r from-white to-gray-300 rounded-lg text-black group-hover:shadow-lg group-hover:shadow-white/20 transition-all duration-300"
+              transition={{ duration: 0.1 }}
+              className="p-2 bg-gray-200 rounded-lg text-black group-hover:shadow-lg group-hover:shadow-white/20 transition-all duration-300"
             >
               <ExternalLink className="w-4 h-4" />
             </motion.div>
@@ -88,7 +88,7 @@ export default function ExperimentCard({ experimentNumber, index }: ExperimentCa
                   <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 </div>
-                <span className="text-xs text-gray-500">index.html</span>
+                <span className="text-xs text-gray-500">page.tsx</span>
               </div>
               <div className="space-y-1">
                 <div className="h-2 bg-gradient-to-r from-blue-500/30 to-transparent rounded"></div>
@@ -99,7 +99,7 @@ export default function ExperimentCard({ experimentNumber, index }: ExperimentCa
             
             {/* Description */}
             <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-              Interactive web experiment showcasing modern techniques
+              This experiment showcases the use of modern web technologies to create interactive and engaging user experiences. Click to explore the code and see it in action!
             </p>
             
             {/* Status indicator */}

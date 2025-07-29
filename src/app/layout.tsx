@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Harsh Partap Jain | Full Stack 1 - Experiments Showcase",
     description: "Explore a collection of interactive web experiments showcasing modern technologies including HTML, CSS, JavaScript, React, and Next.js.",
-    url: "https://full-stack-1-zeta.vercel.app",
+    url: "https://fullstack-ait.vercel.app/",
     siteName: "Harsh Partap Jain - Experiments Showcase",
     images: [
       {
-        url: "/logo.png",
+        url: "/favicon.ico",
         width: 1200,
         height: 630,
         alt: "Harsh Partap Jain - Full Stack Developer",

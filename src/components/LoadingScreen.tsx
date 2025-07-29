@@ -31,7 +31,7 @@ export default function LoadingScreen() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="text-4xl md:text-6xl font-bold text-white mb-8"
         >
-          HPJ
+          Full Stack 1
         </motion.h1>
         
         {/* Loading animation */}
@@ -61,7 +61,7 @@ export default function LoadingScreen() {
           transition={{ duration: 1, delay: 0.5 }}
           className="text-gray-400 text-sm mt-6 tracking-widest"
         >
-          INITIALIZING EXPERIMENTS
+          Loading...
         </motion.p>
       </div>
     </motion.div>
