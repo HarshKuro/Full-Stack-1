@@ -1,73 +1,264 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiment 3 - Harsh Partap Jain</title>
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 40px;
-            background: #f5f5f5;
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .dark .bg-gray-100 {
+            background-color: #1a202c;
         }
-        h1 {
-            color: #333;
-            border-bottom: 2px solid #000;
-            padding-bottom: 10px;
+        .dark .bg-white {
+            background-color: #2d3748;
         }
-        .experiment-info {
-            background: #f9f9f9;
-            padding: 20px;
-            border-left: 4px solid #000;
-            margin: 20px 0;
+        .dark .text-gray-800 {
+            color: #e2e8f0;
         }
-        .back-link {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #000;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-top: 20px;
+        .dark .text-gray-600 {
+            color: #a0aec0;
         }
-        .back-link:hover {
-            background: #333;
+        .dark .border-gray-200 {
+            border-color: #4a5568;
+        }
+        .dark .hover\:bg-gray-50 {
+            background-color: #4a5568;
+        }
+         .dark .hover\:text-gray-900 {
+            color: #fff;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Experiment 3</h1>
-        <div class="experiment-info">
-            <h3>About This Experiment</h3>
-            <p>This is a placeholder for Experiment 3. Replace this content with your actual experiment.</p>
-            <p><strong>Technologies used:</strong> HTML, CSS, JavaScript</p>
-            <p><strong>Learning objectives:</strong> Add your learning objectives here</p>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar -->
+        <aside class="w-64 flex-shrink-0 hidden sm:block">
+            <div class="flex flex-col h-full bg-white shadow-lg">
+                <div class="flex items-center justify-center h-20 border-b border-gray-200">
+                    <h1 class="text-2xl font-bold">Admin</h1>
+                </div>
+                <nav class="flex-1 px-4 py-4">
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        Dashboard
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        Users
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        Analytics
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        Settings
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <div class="flex flex-col flex-1 overflow-y-auto">
+            <div class="flex items-center justify-between h-20 px-6 bg-white border-b border-gray-200">
+                <button id="menu-button" class="sm:hidden text-gray-600 hover:text-gray-900 focus:outline-none">
+                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <h1 class="text-2xl font-semibold text-gray-800"> </h1>
+                <div class="flex items-center">
+                    <button id="theme-switcher" class="mr-4 text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <svg id="theme-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center text-gray-600 hover:text-gray-900 focus:outline-none">
+                            <img class="w-8 h-8 rounded-full" src="https://placehold.co/32x32/6366f1/e0e7ff?text=A" alt="Avatar">
+                            <span class="hidden ml-2 md:inline">Admin</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <main class="p-6">
+                <!-- Grid layout for cards -->
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                    <!-- Card 1 -->
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Total Users</p>
+                                <p class="text-2xl font-bold text-gray-800">10,240</p>
+                            </div>
+                            <div class="p-3 bg-indigo-500 rounded-full">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Total Sales</p>
+                                <p class="text-2xl font-bold text-gray-800">$23,456</p>
+                            </div>
+                            <div class="p-3 bg-green-500 rounded-full">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">New Orders</p>
+                                <p class="text-2xl font-bold text-gray-800">1,234</p>
+                            </div>
+                            <div class="p-3 bg-yellow-500 rounded-full">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Pending Issues</p>
+                                <p class="text-2xl font-bold text-gray-800">56</p>
+                            </div>
+                            <div class="p-3 bg-red-500 rounded-full">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 gap-6 mt-6 lg:grid-cols-2">
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-800">Sales Overview</h3>
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-800">Traffic Sources</h3>
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Orders Table -->
+                <div class="mt-6 bg-white rounded-lg shadow-md">
+                    <div class="p-4 border-b border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800">Recent Orders</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr>
+                                    <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Order ID</th>
+                                    <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Customer</th>
+                                    <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Amount</th>
+                                    <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">#12345</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">Harsh Jain</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">$125.50</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Completed</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">#12346</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">Ashmit Singh</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">$75.00</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <span class="inline-flex px-2 text-xs font-semibold leading-5 text-yellow-800 bg-yellow-100 rounded-full">Pending</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">#12347</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">Chitjeet Singh</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">$250.00</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">Cancelled</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
         </div>
-        
-        <div id="experiment-content">
-            <h3>Experiment Content</h3>
-            <p>Add your experiment content here for Experiment 3.</p>
-            <button onclick="showAlert()">Test Button</button>
-        </div>
-        
-        <a href="javascript:window.close()" class="back-link">Close Tab</a>
     </div>
 
     <script>
-        function showAlert() {
-            alert('Hello from Experiment 3! Replace this with your experiment logic.');
-        }
+        // Theme switcher
+        const themeSwitcher = document.getElementById('theme-switcher');
+        const themeIcon = document.getElementById('theme-icon');
+        const sunIcon = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>`;
+        const moonIcon = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>`;
+
+        themeSwitcher.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.innerHTML = sunIcon;
+            } else {
+                themeIcon.innerHTML = moonIcon;
+            }
+        });
+
+        // Mobile menu
+        const menuButton = document.getElementById('menu-button');
+        const sidebar = document.querySelector('aside');
+
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+        });
+
+        // Chart.js configuration
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(salesCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                    borderColor: 'rgba(99, 102, 241, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const trafficCtx = document.getElementById('trafficChart').getContext('2d');
+        const trafficChart = new Chart(trafficCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Direct', 'Referral', 'Social'],
+                datasets: [{
+                    label: 'Traffic Sources',
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        'rgba(99, 102, 241, 1)',
+                        'rgba(52, 211, 153, 1)',
+                        'rgba(251, 191, 36, 1)'
+                    ],
+                    hoverOffset: 4
+                }]
+            }
+        });
     </script>
 </body>
 </html>
