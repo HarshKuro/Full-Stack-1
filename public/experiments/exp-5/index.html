@@ -1,73 +1,336 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiment 5 - Harsh Partap Jain</title>
-    <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 40px;
-            background: #f5f5f5;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            border-bottom: 2px solid #000;
-            padding-bottom: 10px;
-        }
-        .experiment-info {
-            background: #f9f9f9;
-            padding: 20px;
-            border-left: 4px solid #000;
-            margin: 20px 0;
-        }
-        .back-link {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #000;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-top: 20px;
-        }
-        .back-link:hover {
-            background: #333;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Next-Gen Interactive SVG Drawing Tool</title>
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --panel: #151c2f;
+      --ink: #f0f3ff;
+      --muted: #9aa8ca;
+      --accent: #7dc4ff;
+      --accent2: #ff85c2;
+      --accent3: #ffe27a;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: radial-gradient(circle at 20% 20%, #101830, #0b0f1a);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      align-items: center;
+      padding: 1rem;
+      background: rgba(21,28,47,0.9);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .toolbar label { font-size: .9rem; color: var(--muted); }
+    .toolbar select,
+    .toolbar input[type="color"],
+    .toolbar input[type="number"],
+    .toolbar input[type="checkbox"],
+    .toolbar button {
+      appearance: none;
+      padding: .4rem .6rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: var(--panel);
+      color: var(--ink);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .toolbar button:hover {
+      background: var(--accent);
+      color: #000;
+      transform: translateY(-2px);
+    }
+
+    .wrap {
+      padding: 16px;
+      flex: 1;
+    }
+
+    svg.canvas {
+      width: 100%;
+      height: min(78vh, 780px);
+      display: block;
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.4);
+      background: radial-gradient(1400px 1000px at 30% 20%, rgba(255,255,255,0.05), transparent 60%),
+                  radial-gradient(900px 600px at 80% 90%, rgba(255,255,255,0.04), transparent 70%),
+                  var(--panel);
+      cursor: crosshair;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .hint {
+      margin-top: .75rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      padding: .2rem .55rem;
+      border-radius: 9999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.1);
+      margin-right: .25rem;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Experiment 5</h1>
-        <div class="experiment-info">
-            <h3>About This Experiment</h3>
-            <p>This is a placeholder for Experiment 5. Replace this content with your actual experiment.</p>
-            <p><strong>Technologies used:</strong> HTML, CSS, JavaScript</p>
-            <p><strong>Learning objectives:</strong> Add your learning objectives here</p>
-        </div>
-        
-        <div id="experiment-content">
-            <h3>Experiment Content</h3>
-            <p>Add your experiment content here for Experiment 5.</p>
-            <button onclick="showAlert()">Test Button</button>
-        </div>
-        
-        <a href="javascript:window.close()" class="back-link">Close Tab</a>
-    </div>
+  <div class="toolbar">
+    <label>Shape
+      <select id="shapeSelect">
+        <option value="rect">Rectangle</option>
+        <option value="line">Line</option>
+        <option value="circle">Circle</option>
+        <option value="ellipse">Ellipse</option>
+        <option value="free">Freehand</option>
+      </select>
+    </label>
 
-    <script>
-        function showAlert() {
-            alert('Hello from Experiment 5! Replace this with your experiment logic.');
-        }
-    </script>
+    <label>Stroke
+      <input id="strokeColor" type="color" value="#7dc4ff" />
+    </label>
+
+    <label>Width
+      <input id="strokeWidth" type="number" min="1" max="20" step="1" value="3" />
+    </label>
+
+    <label>
+      Fill
+      <input id="fillColor" type="color" value="#ff85c2" />
+    </label>
+
+    <label>
+      Fill α
+      <input id="fillAlpha" type="number" min="0" max="1" step="0.1" value="0.25" />
+    </label>
+
+    <label>
+      Grid <input id="toggleGrid" type="checkbox" checked />
+    </label>
+
+    <button id="undoBtn">Undo</button>
+    <button id="redoBtn">Redo</button>
+    <button id="clearBtn">Clear</button>
+    <button id="downloadBtn">Download SVG</button>
+  </div>
+
+  <div class="wrap">
+    <svg id="canvas" class="canvas" viewBox="0 0 1200 800">
+      <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--muted)" stroke-width="1" />
+          </pattern>
+      </defs>
+  <rect id="gridRect" x="0" y="0" width="1200" height="800" fill="url(#grid)" opacity="0.5" />
+      <g id="shapes"></g>
+    </svg>
+
+    <p class="hint">
+      <span class="pill">Drag</span> to draw. <span class="pill">Release</span> to finish. 
+      <span class="pill">Esc</span> cancels current shape. 
+      Use <span class="pill">Undo</span>/<span class="pill">Redo</span> to manage shapes.
+    </p>
+  </div>
+
+  <script>
+    const svg = document.getElementById('canvas');
+    const shapesLayer = document.getElementById('shapes');
+    const gridRect = document.getElementById('gridRect');
+
+    const shapeSelect = document.getElementById('shapeSelect');
+    const strokeColor = document.getElementById('strokeColor');
+    const strokeWidth = document.getElementById('strokeWidth');
+    const fillColor = document.getElementById('fillColor');
+    const fillAlpha = document.getElementById('fillAlpha');
+    const toggleGrid = document.getElementById('toggleGrid');
+    const undoBtn = document.getElementById('undoBtn');
+    const redoBtn = document.getElementById('redoBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    toggleGrid.addEventListener('change', () => {
+      gridRect.style.display = toggleGrid.checked ? 'block' : 'none';
+    });
+
+    let isDrawing = false;
+    let start = null;
+    let currentShape = null;
+    let freePath = '';
+    const undoStack = [];
+    const redoStack = [];
+
+    function svgPoint(evt) {
+      const pt = svg.createSVGPoint();
+      pt.x = evt.clientX; pt.y = evt.clientY;
+      const ctm = svg.getScreenCTM();
+      return pt.matrixTransform(ctm.inverse());
+    }
+
+    function create(tag, attrs = {}) {
+      const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+      for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+      return el;
+    }
+
+    function beginDraw(evt) {
+      if (evt.button !== 0) return;
+      isDrawing = true;
+      start = svgPoint(evt);
+
+      const stroke = strokeColor.value;
+      const width = Math.max(1, Number(strokeWidth.value) || 1);
+
+      if (shapeSelect.value === 'line') {
+        currentShape = create('line', { x1: start.x, y1: start.y, x2: start.x, y2: start.y,
+          stroke, 'stroke-width': width, 'stroke-linecap': 'round' });
+      } else if (shapeSelect.value === 'rect') {
+        currentShape = create('rect', { x: start.x, y: start.y, width: 0, height: 0,
+          stroke, 'stroke-width': width, fill: rgbaFill() });
+      } else if (shapeSelect.value === 'circle') {
+        currentShape = create('circle', { cx: start.x, cy: start.y, r: 0,
+          stroke, 'stroke-width': width, fill: rgbaFill() });
+      } else if (shapeSelect.value === 'ellipse') {
+        currentShape = create('ellipse', { cx: start.x, cy: start.y, rx: 0, ry: 0,
+          stroke, 'stroke-width': width, fill: rgbaFill() });
+      } else if (shapeSelect.value === 'free') {
+        freePath = `M ${start.x},${start.y}`;
+        currentShape = create('path', { d: freePath,
+          stroke, 'stroke-width': width, fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+      }
+
+      currentShape.style.pointerEvents = 'none';
+      shapesLayer.appendChild(currentShape);
+    }
+
+    function updateDraw(evt) {
+      if (!isDrawing || !currentShape) return;
+      const p = svgPoint(evt);
+
+      if (currentShape.tagName === 'line') {
+        currentShape.setAttribute('x2', p.x);
+        currentShape.setAttribute('y2', p.y);
+      } else if (currentShape.tagName === 'rect') {
+        const x = Math.min(p.x, start.x);
+        const y = Math.min(p.y, start.y);
+        const w = Math.abs(p.x - start.x);
+        const h = Math.abs(p.y - start.y);
+        currentShape.setAttribute('x', x);
+        currentShape.setAttribute('y', y);
+        currentShape.setAttribute('width', w);
+        currentShape.setAttribute('height', h);
+      } else if (currentShape.tagName === 'circle') {
+        const r = Math.hypot(p.x - start.x, p.y - start.y);
+        currentShape.setAttribute('r', r);
+      } else if (currentShape.tagName === 'ellipse') {
+        currentShape.setAttribute('rx', Math.abs(p.x - start.x));
+        currentShape.setAttribute('ry', Math.abs(p.y - start.y));
+      } else if (currentShape.tagName === 'path') {
+        freePath += ` L ${p.x},${p.y}`;
+        currentShape.setAttribute('d', freePath);
+      }
+    }
+
+    function endDraw() {
+      if (!isDrawing) return;
+      isDrawing = false;
+      if (currentShape) {
+        currentShape.style.pointerEvents = '';
+        undoStack.push(currentShape);
+        redoStack.length = 0;
+      }
+      currentShape = null;
+      start = null;
+    }
+
+    function rgbaFill() {
+      const alpha = Math.min(1, Math.max(0, Number(fillAlpha.value) || 0));
+      const hex = fillColor.value;
+      const r = parseInt(hex.slice(1,3), 16);
+      const g = parseInt(hex.slice(3,5), 16);
+      const b = parseInt(hex.slice(5,7), 16);
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    function undo() {
+      if (undoStack.length > 0) {
+        const shape = undoStack.pop();
+        redoStack.push(shape);
+        shape.remove();
+      }
+    }
+
+    function redo() {
+      if (redoStack.length > 0) {
+        const shape = redoStack.pop();
+        shapesLayer.appendChild(shape);
+        undoStack.push(shape);
+      }
+    }
+
+    function clearCanvas() {
+      shapesLayer.innerHTML = '';
+      undoStack.length = 0;
+      redoStack.length = 0;
+    }
+
+    function downloadSVG() {
+      const serializer = new XMLSerializer();
+      let source = serializer.serializeToString(svg);
+      const blob = new Blob([source], {type: 'image/svg+xml;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'drawing.svg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isDrawing) {
+        currentShape?.remove();
+        currentShape = null;
+        isDrawing = false;
+      }
+      if (e.ctrlKey && e.key === 'z') undo();
+      if (e.ctrlKey && e.key === 'y') redo();
+    });
+
+    svg.addEventListener('mousedown', beginDraw);
+    svg.addEventListener('mousemove', updateDraw);
+    svg.addEventListener('mouseup', endDraw);
+    svg.addEventListener('mouseleave', endDraw);
+
+    undoBtn.addEventListener('click', undo);
+    redoBtn.addEventListener('click', redo);
+    clearBtn.addEventListener('click', clearCanvas);
+    downloadBtn.addEventListener('click', downloadSVG);
+  </script>
 </body>
 </html>
